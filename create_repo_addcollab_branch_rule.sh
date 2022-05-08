@@ -5,10 +5,10 @@
 #Making a git repository using GitHub API of POST Method
 #  The above code is adding a collaborator to the repository.
 curl --location --request POST 'https://api.github.com/user/repos' \
-    --header 'Authorization: Bearer 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' \
+    --header 'Authorization: Bearer {TOKEN}' \ 
     --header 'Content-Type: application/json' \
     --data-raw '{
-    "name" : "cs21_MAT7_ClassWork",
+    "name" : "REPOSITORY_NAME", 
     "description" : "",
     "homepage":"https://github.com",
     "private": true,
@@ -20,8 +20,8 @@ curl --location --request POST 'https://api.github.com/user/repos' \
 
 # Adding a README to the repository using GitHub API of POST Method
 # Empty GitHub Repository cannot has branch Rule
-git clone git@github.com:suhailroushan13/cs21_MAT7_ClassWork.git
-cd cs21_MAT7_ClassWork
+git clone git@github.com:{OWNER_USERNAME}/{REPOSITORY_NAME}.git
+cd {REPOSITORY_NAME}
 touch README.md
 echo "This Repository has been created Successfully using GitHub API of POST Method" >> README.md
 git add .
@@ -30,7 +30,7 @@ git push origin master
 
 
 # Inviting Collaborator to the repository using GitHub API of POST Method
-curl -H "Authorization: token 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" "https://api.github.com/repos/suhailroushan13/cs21_MAT7_ClassWork/collaborators/160919733108" -X PUT -d '{"permission":"push"}'
+curl -H "Authorization: token {TOKEN}" \ "https://api.github.com/repos/{OWNER_USERNAME}/{REPOSITORY_NAME}/collaborators/{COLLABORATOR_NAME}" -X PUT -d '{"permission":"push"}'
 
 # Creating a Branch Rule 
 
@@ -38,7 +38,7 @@ curl -H "Authorization: token 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" "https:/
 set -e
 
 
-export user="suhailroushan13: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" 
+export user="{OWNER_USERNAME}":"{TOKEN}"
 export branch="master" 
 
 declare -a repositories=(
@@ -58,9 +58,9 @@ JSON=$(cat << 'EOF'
 EOF
 )
 
-for cs21_MAT7_ClassWork in "${repositories[@]}"; do
+for {REPOSITORY_NAME} in "${repositories[@]}"; do
     echo "========"
-    echo "=======> cs21_MAT7_ClassWork"
+    echo "=======> {REPOSITORY_NAME} "
     echo "========"
         
     curl \
@@ -68,7 +68,7 @@ for cs21_MAT7_ClassWork in "${repositories[@]}"; do
         --user $user \
         --header "Accept: application/vnd.github.v3+json" \
         --request PUT \
-        https://api.github.com/repos/suhailroushan13/cs21_MAT7_ClassWork/branches/master/protection \
+        https://api.github.com/repos/{OWNER_USERNAME}/{REPOSITORY_NAME}/branches/master/protection \
         --data "$JSON"
 
 done
