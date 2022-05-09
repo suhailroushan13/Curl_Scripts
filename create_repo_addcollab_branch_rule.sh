@@ -5,17 +5,16 @@
 #Making a git repository using GitHub API of POST Method
 #  The above code is adding a collaborator to the repository.
 curl --location --request POST 'https://api.github.com/user/repos' \
-    --header 'Authorization: Bearer {TOKEN}' \ 
-    --header 'Content-Type: application/json' \
-    --data-raw '{
-    "name" : "REPOSITORY_NAME", 
-    "description" : "",
-    "homepage":"https://github.com",
-    "private": true,
-    "has_issues":true,
-    "has_projects":true,
-    "has_wiki":true
-
+--header 'Authorization: Bearer YOUR_TOKEN' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "name": "Suhail",
+    "description": "This is your first repository",
+    "homepage": "https://github.com",
+    "private": false,
+    "has_issues": true,
+    "has_projects": true,
+    "has_wiki": true
 }'
 
 # Adding a README to the repository using GitHub API of POST Method
